@@ -20,11 +20,13 @@
 ## 🎓 Citation
 If you find our work useful in your research, please consider citing our paper:
 ```
-@inproceedings{jiang2023scenimefy,
-  title={Scenimefy: Learning to Craft Anime Scene via Semi-Supervised Image-to-Image Translation},
-  author={Jiang, Yuxin and Jiang, Liming and Yang, Shuai and Loy, Chen Change},
-  booktitle={ICCV},
-  year={2023}
+@misc{jiang2025balancedimagestylizationstyle,
+      title={Balanced Image Stylization with Style Matching Score}, 
+      author={Yuxin Jiang and Liming Jiang and Shuai Yang and Jia-Wei Liu and Ivor Tsang and Mike Zheng Shou},
+      year={2025},
+      eprint={2503.07601},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
 }
 ```
 <!--
