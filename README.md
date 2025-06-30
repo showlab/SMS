@@ -41,11 +41,11 @@ The program will automatically download pretrained SD models during optimization
 export HF_HOME=/your/large/storage/cache
 ```
 
+## 🎨 Stylization
+
 <p align="left">
   <img src="https://github.com/showlab/SMS/blob/main/assets/optimization.gif" alt="Vis" width="80%">
 </p>
-
-## 🎨 Stylization
 
 ### 1. Quick Demos
 Each script runs optimization for a specific style, saving both the final result and every-50-iteration previews (as `.png` and `.gif`) in the `output/` folder.
