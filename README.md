@@ -3,7 +3,7 @@
 [Yuxin Jiang](https://yuxinn-j.github.io/), [Liming Jiang](https://liming-jiang.com/), [Shuai Yang](https://williamyang1991.github.io/), [Jia-Wei Liu](https://jia-wei-liu.github.io/), [Ivor W. Tsang](https://www.a-star.edu.sg/cfar/about-cfar/management/prof-ivor-tsang) and [Mike Shou Zheng](https://cde.nus.edu.sg/ece/staff/shou-zheng-mike/)<br>
 in ICCV 2025.
 
-[![arXiv](https://img.shields.io/badge/arXiv-2411.17949-b31b1b.svg)](https://arxiv.org/abs/2308.12968)
+[![arXiv](https://img.shields.io/badge/arXiv-2411.17949-b31b1b.svg)](https://arxiv.org/abs/2503.07601)
 [![Project Page](https://img.shields.io/badge/Project-Website-orange)](https://yuxinn-j.github.io/projects/SMS.html)
 
 <p align="left">
