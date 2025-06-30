@@ -41,6 +41,9 @@ The program will automatically download pretrained SD models during optimization
 export HF_HOME=/your/large/storage/cache
 ```
 
+<p align="left">
+  <img src="https://github.com/showlab/SMS/blob/main/assets/optimization.gif" alt="Vis" width="80%">
+</p>
 
 ## 🎨 Stylization
 
