@@ -83,10 +83,10 @@ See `stylize.py` for the full list of arguments and usage examples.
 ## 🎓 Citation
 If you find our work useful in your research, please consider citing our paper:
 ```
-@article{jiang2025balanced,
+@inproceedings{jiang2025balanced,
   title={Balanced Image Stylization with Style Matching Score},
   author={Jiang, Yuxin and Jiang, Liming and Yang, Shuai and Liu, Jia-Wei and Tsang, Ivor and Shou, Mike Zheng},
-  journal={arXiv preprint arXiv:2503.07601},
+  booktitle={ICCV},
   year={2025}
 }
 ```
