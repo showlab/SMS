@@ -16,7 +16,7 @@ in ICCV 2025.
 
 ### Updates
 
-- [ ] Support other score distillation methods (VSD, SDS ...) for completeness.
+- [03/2026] Support other score distillation methods (VSD, SDS ...) for completeness.
 - [06/2025] Code is released.
 - [06/2025] The paper is accepted to ICCV 2025!🎉
 - [03/2025] Repo is initialized.

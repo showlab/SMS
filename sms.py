@@ -428,16 +428,99 @@ class SMS(object):
                 return loss
 
         elif method == "pds":
-            # TODO
-            pass
+            zts = dict()
+            for latent, cond_text_embedding, name in zip(
+                [tgt_x0, src_x0],
+                [tgt_text_embedding, src_text_embedding],
+                ["tgt", "src"],
+            ):
+                latents_noisy = scheduler.add_noise(latent, noise, t)
+                latent_model_input = torch.cat([latents_noisy] * 2, dim=0)
+                text_embeddings = torch.cat(
+                    [cond_text_embedding, uncond_embedding], dim=0
+                )
+                noise_pred = self.unet.forward(
+                    latent_model_input,
+                    torch.cat([t] * 2).to(device),
+                    encoder_hidden_states=text_embeddings,
+                ).sample
+                noise_pred_text, noise_pred_uncond = noise_pred.chunk(2)
+                noise_pred = noise_pred_uncond + self.config.guidance_scale * (
+                    noise_pred_text - noise_pred_uncond
+                )
+
+                x_t_prev = scheduler.add_noise(latent, noise_t_prev, t_prev)
+                mu = self.compute_posterior_mean(latents_noisy, noise_pred, t, t_prev)
+                zt = (x_t_prev - mu) / sigma_t
+                zts[name] = zt
+
+            grad = zts["tgt"] - zts["src"]
+            grad = torch.nan_to_num(grad)
+            target = (tgt_x0 - grad).detach()
+            loss = 0.5 * F.mse_loss(tgt_x0, target, reduction=reduction) / batch_size
+            if return_dict:
+                dic = {"loss": loss, "grad": grad, "t": t}
+                return dic
+            else:
+                return loss
 
         elif method == "dds":
-            # TODO
-            pass
+            noise_preds = dict()
+            for latent, cond_text_embedding, name in zip(
+                [tgt_x0, src_x0],
+                [tgt_text_embedding, src_text_embedding],
+                ["tgt", "src"],
+            ):
+                latents_noisy = scheduler.add_noise(latent, noise, t)
+                latent_model_input = torch.cat([latents_noisy] * 2, dim=0)
+                text_embeddings = torch.cat(
+                    [cond_text_embedding, uncond_embedding], dim=0
+                )
+                noise_pred = self.unet.forward(
+                    latent_model_input,
+                    torch.cat([t] * 2).to(device),
+                    encoder_hidden_states=text_embeddings,
+                ).sample
+                noise_pred_text, noise_pred_uncond = noise_pred.chunk(2)
+                noise_pred = noise_pred_uncond + self.config.guidance_scale * (
+                    noise_pred_text - noise_pred_uncond
+                )
+
+                noise_preds[name] = noise_pred
+
+            grad = noise_preds["tgt"] - noise_preds["src"]
+            grad = torch.nan_to_num(grad)
+            target = (tgt_x0 - grad).detach()
+            loss = 0.5 * F.mse_loss(tgt_x0, target, reduction=reduction) / batch_size
+            if return_dict:
+                dic = {"loss": loss, "grad": grad, "t": t}
+                return dic
+            else:
+                return loss
 
         elif method == "sds":
-            # TODO
-            pass
+            latents_noisy = scheduler.add_noise(tgt_x0, noise, t)
+            latent_model_input = torch.cat([latents_noisy] * 2, dim=0)
+            text_embeddings = torch.cat([tgt_text_embedding, uncond_embedding], dim=0)
+            noise_pred = self.unet.forward(
+                latent_model_input,
+                torch.cat([t] * 2).to(device),
+                encoder_hidden_states=text_embeddings,
+            ).sample
+            noise_pred_text, noise_pred_uncond = noise_pred.chunk(2)
+            noise_pred = noise_pred_uncond + self.config.guidance_scale * (
+                noise_pred_text - noise_pred_uncond
+            )
+
+            w = (1 - alpha_bar_t).view(-1, 1, 1, 1)
+            grad = w * (noise_pred - noise)
+            target = (tgt_x0 - grad).detach()
+            loss = 0.5 * F.mse_loss(tgt_x0, target, reduction=reduction) / batch_size
+            if return_dict:
+                dic = {"loss": loss, "grad": grad, "t": t}
+                return dic
+            else:
+                return loss
 
         else:
             raise ValueError(f"Unknown method: {method}. Supported methods: sms, vsd, pds, dds, sds.")
